@@ -6,14 +6,12 @@ import os
 import time
 import math
 from pprint import pprint
-import eyed3
 
 no_info_doc = "LOG\n\n"
 
 def log_bad_song(s):
 	return str('NO INFO: {0}\n'.format(s))
 
-eyed3.log.setLevel("ERROR")
 parser = argparse.ArgumentParser()
 parser.add_argument("cwd")
 
