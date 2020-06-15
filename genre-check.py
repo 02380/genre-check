@@ -53,6 +53,6 @@ with progressbar.ProgressBar(max_value=len(songs)) as bar:
 		bar.update(i)
 
 
-with open('log.txt', 'w') as the_file:
+with open('log.txt', 'w', encoding='utf-8') as the_file:
     the_file.write(no_info_doc)
 print("{0} songs found - {1} are tagged, {2} are not [{3}%]".format(len(songs),len(songs_ok),len(songs)-len(songs_ok),round((len(songs_ok)/len(songs))*100,2)))
