@@ -7,9 +7,14 @@ import math
 from pprint import pprint
 import eyed3
 
+def log_bad_song(s):
+	with open('log.txt', 'a') as the_file:
+	    the_file.write('NO INFO: {0}\n'.format(s))
+
 eyed3.log.setLevel("ERROR")
 parser = argparse.ArgumentParser()
 parser.add_argument("cwd")
+
 args = parser.parse_args()
 print("genre-checker: scanning {0}".format(args.cwd))
 
@@ -30,6 +35,10 @@ for song in songs:
 	if hasattr(audiofile, 'tag'):
 		if hasattr(audiofile.tag, 'genre'):
 			songs_ok.append(song)
+		else:
+			log_bad_song(song)
+	else:
+		log_bad_song(song)
 	time.sleep(0.01)
 
 print("{0} songs found - {1} are tagged, {2} are not [{3}%]".format(len(songs),len(songs_ok),len(songs)-len(songs_ok),round((len(songs_ok)/len(songs))*100,2)))
