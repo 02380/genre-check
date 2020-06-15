@@ -4,6 +4,8 @@ import os
 import time
 import math
 from pprint import pprint
+import progressbar
+
 
 no_info_doc = "LOG\n\n"
 
@@ -28,25 +30,27 @@ for root, dirs, files in os.walk(args.cwd):
         elif os.path.splitext(filename)[1] == ".m4a":
         	songs.append(os.path.join(root, filename))
 
-for song in songs:
-	audiofile = TinyTag.get(song)
-	# audiofile = eyed3.load(song)
-	# if hasattr(audiofile, 'tag'):
-	# 	if hasattr(audiofile.tag, 'genre'):
-	# 		songs_ok.append(song)
-	# 	else:
-	# 		log_bad_song(song)
-	# else:
-	# 	log_bad_song(song)
-	log_bad_song(audiofile.genre)
-	if hasattr(audiofile, 'genre'):
-		if audiofile.genre == 'None' or audiofile.genre == None or audiofile.genre == '':
-			no_info_doc += log_bad_song(song)
-		else:	
-			songs_ok.append(song)
-	else:
-		log_bad_song(song)
-	time.sleep(0.01)
+with progressbar.ProgressBar(max_value=len(songs)) as bar:
+	for i, song in enumerate(songs):
+		audiofile = TinyTag.get(song)
+		# audiofile = eyed3.load(song)
+		# if hasattr(audiofile, 'tag'):
+		# 	if hasattr(audiofile.tag, 'genre'):
+		# 		songs_ok.append(song)
+		# 	else:
+		# 		log_bad_song(song)
+		# else:
+		# 	log_bad_song(song)
+		log_bad_song(audiofile.genre)
+		if hasattr(audiofile, 'genre'):
+			if audiofile.genre == 'None' or audiofile.genre == None or audiofile.genre == '':
+				no_info_doc += log_bad_song(song)
+			else:	
+				songs_ok.append(song)
+		else:
+			log_bad_song(song)
+		time.sleep(0.01)
+		bar.update(i)
 
 
 with open('log.txt', 'w') as the_file:
