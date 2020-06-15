@@ -1,5 +1,3 @@
-#!venv/bin/python
-
 from tinytag import TinyTag
 import argparse
 import os
