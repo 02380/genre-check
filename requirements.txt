@@ -1,7 +1,9 @@
 deprecation==2.1.0
+eyeD3==0.9.5
 filetype==1.0.7
 mutagen==1.44.0
 packaging==20.4
 pprint==0.1
 pyparsing==2.4.7
 six==1.15.0
+tinytag==1.4.0
